@@ -9,9 +9,17 @@ import dotenv from 'dotenv';
 // cors request
 import cors from 'cors';
 
+// to connect to mongodb 
+import connectDB from './config/db.js';
+
+// errors handlers
+import { notFound, errorHandler } from './middleware/errorMiddleware.js';
+
 // import local data 
 // need to add .js in js file here on es module import 
-import products from './data/products.js';
+// import products from './data/products.js';
+
+import productRoutes from './routes/productRoutes.js';
 
 // .env for our configurations
 dotenv.config();
@@ -22,23 +30,20 @@ const app = express();
 // use cors middleware
 app.use(cors())
 
+// connecting to MangoDB
+connectDB();
+
 // api end points
 app.get('/', (req, res) => {
   res.send('API is running!')
 })
 
-// products
-app.get('/api/products', (req, res) => {
-  res.send(products)
-  // same as above - res.json(products)
-})
+// use product routes
+app.use('/api/products', productRoutes)
 
-// single product by id
-app.get('/api/products/:id', (req, res) => {
-  const product = products.find(product => product._id === req.params.id)
-  res.json(product)
-})
-
+// error middleware
+app.use(notFound)
+app.use(errorHandler)
 
 // dynamic port binding in prod or dev environment
 const PORT = process.env.PORT || 5000;
