@@ -1,11 +1,20 @@
-// common js module import syntax
-const express = require('express');
+// es module import syntax
+// just add - "type": "module" in root package.json file
+// need to add .js in js files when importing
+import express from 'express';
+
+// npm install dotenv
+import dotenv from 'dotenv';
 
 // cors request
-const cors = require('cors');
+import cors from 'cors';
 
 // import local data 
-const products = require('./data/products');
+// need to add .js in js file here on es module import 
+import products from './data/products.js';
+
+// .env for our configurations
+dotenv.config();
 
 // instance of express app object
 const app = express();
@@ -32,9 +41,9 @@ app.get('/api/products/:id', (req, res) => {
 
 
 // dynamic port binding in prod or dev environment
-const PORT = process.env.PORT || 7000;
+const PORT = process.env.PORT || 5000;
 
 // app object's listen method
 app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`)
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
 })
