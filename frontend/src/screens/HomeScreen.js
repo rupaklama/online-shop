@@ -1,29 +1,49 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { Fragment, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 import Product from '../components/Product';
-
+import { listProducts } from '../actions/productActions';
+import Loader from '../components/Loader';
+import DisplayMessage from '../components/DisplayMessage';
 const HomeScreen = () => {
-  const [products, setProducts] = useState([]);
+  // useDispatch hook to dispatch an action creator
+  const dispatch = useDispatch();
+
+  // useSelector hook to get access to productList state in redux store
+  // naming same as our productList state - key
+  // this hook takes an arrow func with arg state & which part of state we want from combineReducers
+  const productList = useSelector(state => state.productList);
+
+  // destructuring particular object properties from productList state in redux store
+  // to display in our component
+  const { loading, error, products } = productList;
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const { data } = await axios.get('http://localhost:7000/api/products');
-      setProducts(data);
-    };
-    fetchProducts();
-  }, []);
+    // dispatching action creator to make api request
+    dispatch(listProducts());
+  }, [dispatch]);
 
   return (
     <Fragment>
       <h1>Latest Products</h1>
-      <Row>
-        {products.map(product => (
-          <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
-            <Product product={product} />
-          </Col>
-        ))}
-      </Row>
+
+      {/** if loading, display loader,
+          else if there is an error, display error component,
+          else display row with our data
+      */}
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <DisplayMessage variant='danger'>{error}</DisplayMessage>
+      ) : (
+        <Row>
+          {products.map(product => (
+            <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
+              <Product product={product} />
+            </Col>
+          ))}
+        </Row>
+      )}
     </Fragment>
   );
 };
