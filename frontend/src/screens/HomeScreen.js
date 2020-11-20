@@ -10,7 +10,7 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
 
   // useSelector hook to get access to productList state in redux store
-  // naming same as our productList state - key
+  // naming same as our 'productList' state in combineReducers - key
   // this hook takes an arrow func with arg state & which part of state we want from combineReducers
   const productList = useSelector(state => state.productList);
 
