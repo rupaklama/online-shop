@@ -20,12 +20,16 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 // import products from './data/products.js';
 
 import productRoutes from './routes/productRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 // .env for our configurations
 dotenv.config();
 
 // instance of express app object
 const app = express();
+
+// use body parser to except json data in the request body
+app.use(express.json())
 
 // use cors middleware
 app.use(cors())
@@ -38,8 +42,11 @@ app.get('/', (req, res) => {
   res.send('API is running!')
 })
 
-// use product routes
+// use routes
 app.use('/api/products', productRoutes)
+app.use('/api/users', userRoutes)
+
+
 
 // error middleware
 app.use(notFound)

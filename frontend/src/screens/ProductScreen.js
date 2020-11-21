@@ -18,8 +18,8 @@ import Loader from '../components/Loader';
 import DisplayMessage from '../components/DisplayMessage';
 
 const ProductScreen = ({ match, history }) => {
-  // component states
-  const [quantity, setQuantity] = useState(0);
+  // component state
+  const [qty, setQty] = useState(1) // default value to start with
 
   // useDispatch hook to dispatch an action creator
   const dispatch = useDispatch();
@@ -40,8 +40,9 @@ const ProductScreen = ({ match, history }) => {
 
   // add to cart button
   const addToCartHandler = () => {
-    // adding query string of ?qty=
-    history.push(`/cart/${match.params.id}?qty=${quantity}`)
+    // we want to go to cart page with some params - product id & quantity as query string
+    // adding query string of '?qty= '
+    history.push(`/cart/${match.params.id}?qty=${qty}`)
   }
 
   // match id param & find that product
@@ -118,19 +119,19 @@ const ProductScreen = ({ match, history }) => {
                       <Col>
                         <Form.Control
                           as='select'
-                          value={quantity}
-                          onChange={e => setQuantity(e.target.value)}
+                          value={qty}
+                          onChange={e => setQty(e.target.value)}
                         >
                           {/** The keys() method returns a new Array Iterator object 
                             that contains the keys for each index in the array. 
                             Here, using spread operator with Array constructor & accessing
                             countInStock in product to get keys from it. Let's say product count
-                            in stock is 5, then we want to create an array of [0,1,2,3,4]
+                            in stock is 5, then we want to create an array of [0,1,2,3,4] - 5 values
                           */}
 
                           {[...Array(product.countInStock).keys()].map(
                             count => (
-                              // an array starts at 0, we do 'count + 1' to get values from 1 - 5 
+                              // an array starts at 0, we do 'count + 1' to get values as 1 - 5 
                               <option key={count + 1} value={count + 1}>
                                 {count + 1}
                               </option>

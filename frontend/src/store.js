@@ -28,15 +28,17 @@ const middleware = [thunk];
 // test files to add data into Store for testing from test files
 // our initial test state will be pass as prop here
 
-// fetching from local storage
+// Accessing cart data from local storage with key - 'cartItems'
 const cartItemsFromStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))
-  : [];
+  : []; // if not found in local storage, its just going to be an empty array
 
 const store = ({
   children,
   initialState = {
-    cart: { cardItems: cartItemsFromStorage },
+    // our redux store initial global state 
+    // creating initial/current state for cart 
+    cart: { cartItems: cartItemsFromStorage },
   },
 }) => {
   // Wrap the children component with the Provider component.

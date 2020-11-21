@@ -9,7 +9,7 @@ import CartScreen from './screens/CartScreen';
 
 const App = () => {
   return (
-    // '/cart/:id?' - adding '?' to make id optional
+    // '/cart/:id?' - adding '?' to make 'id' to be optional
     // because when we go to '/cart/' , its not going to have an id in it,
     // so making id optional
     <Fragment>

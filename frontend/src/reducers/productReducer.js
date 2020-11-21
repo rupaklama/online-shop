@@ -23,7 +23,7 @@ import {
 
 // reducer takes two things
 // state = { products: [] } - current state of this reducer 
-// products:[] - adding products list state into our redux store
+// products:[] - adding 'products property' into our state to add products
 // this reducer's initial/current state & action objects to add/update our global state - redux store
 export const productListReducer = (state = { products: [] }, action) => {
   switch (action.type) {
@@ -31,7 +31,7 @@ export const productListReducer = (state = { products: [] }, action) => {
       // when component renders starts loading
       // added prop 'loading' - with true value in our state
       // products: [] - current products state to start with which is not fulfilled yet
-      return { ...state, loading: true };
+      return { ...state, loading: true  };
     case PRODUCT_LIST_SUCCESS:
       return {
         ...state,
@@ -51,7 +51,8 @@ export const productListReducer = (state = { products: [] }, action) => {
 
 // products details
 // this reducer's current/initial state & action objects to add/update our global state
-// { reviews: [] } - product has reviews, its an array of objects
+// product: {} - adding 'product property' into our state to add product
+// { reviews: [] } - product has reviews, therefore, adding 'reviews property' to add reviews
 export const productDetailsReducer = (state = { product: { reviews: [] } }, action) => {
   switch (action.type) {
     case PRODUCT_DETAILS_REQUEST:
