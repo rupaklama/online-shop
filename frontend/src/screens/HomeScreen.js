@@ -12,14 +12,14 @@ const HomeScreen = () => {
   // useSelector hook to get access to productList state in redux store
   // naming same as our 'productList' state in combineReducers - key
   // this hook takes an arrow func with arg state & which part of state we want from combineReducers
-  const productList = useSelector(state => state.productList);
+  const productList = useSelector(state => state.productList); // must pass a selector to useSelector
 
   // destructuring particular object properties from productList state in redux store
   // to display in our component
   const { loading, error, products } = productList;
 
+  // dispatching action creator to make api request when component renders
   useEffect(() => {
-    // dispatching action creator to make api request
     dispatch(listProducts());
   }, [dispatch]);
 

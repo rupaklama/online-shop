@@ -19,16 +19,26 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducers';
 
 // to add multiple middleware here
-const middleware = [thunk]
+const middleware = [thunk];
 
 // This is a React Provider component & call with props object
 // This component will wrap up other components
 
-// declare initial Global state object & customized to work with 
+// declare initial Global state object & customized to work with
 // test files to add data into Store for testing from test files
 // our initial test state will be pass as prop here
-const store = ({ children, initialState = {} }) => {
 
+// fetching from local storage
+const cartItemsFromStorage = localStorage.getItem('cartItems')
+  ? JSON.parse(localStorage.getItem('cartItems'))
+  : [];
+
+const store = ({
+  children,
+  initialState = {
+    cart: { cardItems: cartItemsFromStorage },
+  },
+}) => {
   // Wrap the children component with the Provider component.
   // pass in a single prop - store which takes in all the reducers
   return (
@@ -36,7 +46,7 @@ const store = ({ children, initialState = {} }) => {
       store={createStore(
         rootReducer,
         initialState,
-        composeWithDevTools(applyMiddleware( ...middleware))
+        composeWithDevTools(applyMiddleware(...middleware))
       )}
     >
       {children}
