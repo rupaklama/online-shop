@@ -53,6 +53,7 @@ const CartScreen = ({ match, location, history }) => {
   const checkoutHandler = () => {
     // if user is not logged in, direct user to login
     // if logged in, direct user to shipping
+    // ? is for option 
     history.push('/login?redirect=shipping')
   }
   

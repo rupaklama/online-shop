@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 // import all our reducers here
 import { cartReducer } from './cartReducers';
 import { productListReducer, productDetailsReducer } from './productReducers';
-import { userLoginReducer, userRegisterReducer } from './userReducers';
+import { userDetailsReducer, userLoginReducer, userRegisterReducer, userUpdateProfileReducer } from './userReducers';
 
 // this will house CombineReducers func which combines 
 // multiple Reducers into Single Object - redux store
@@ -15,5 +15,7 @@ export default combineReducers({
   cart: cartReducer, // cart state 
   userLogin: userLoginReducer, // user login state
   userRegister: userRegisterReducer, // user register state
+  userDetails: userDetailsReducer, // user details state
+  userUpdateProfile: userUpdateProfileReducer, // user update state
 })
 
