@@ -31,17 +31,15 @@ export const productListReducer = (state = { products: [] }, action) => {
       // when component renders starts loading
       // added prop 'loading' - with true value in our state
       // products: [] - current products state to start with which is not fulfilled yet
-      return { ...state, loading: true  };
+      return { loading: true, products: [] };
     case PRODUCT_LIST_SUCCESS:
       return {
-        ...state,
         loading: false, // now it's done loading & making request
-        products: action.payload, // fetched data
+        products: action.payload, // fetched data into products array 
       };
     case PRODUCT_LIST_FAIL:
       return {
-        ...state, 
-       loading: false, // now it's done loading & making request
+        loading: false, // now it's done loading & making request
         error: action.payload, // adding error piece of state with new error prop
       };
     default:
@@ -61,13 +59,11 @@ export const productDetailsReducer = (state = { product: { reviews: [] } }, acti
       return { ...state, loading: true };
     case PRODUCT_DETAILS_SUCCESS:
       return {
-        ...state,
         loading: false, // now it's done loading & making request
         product: action.payload, // fetched data
       };
     case PRODUCT_DETAILS_FAIL:
       return {
-        ...state,
         loading: false, // now it's done loading & making request
         error: action.payload, // set error piece of state
       };

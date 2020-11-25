@@ -15,7 +15,7 @@ import {
 import { listProductDetails } from '../actions/productActions';
 import Rating from '../components/Rating';
 import Loader from '../components/Loader';
-import DisplayMessage from '../components/DisplayMessage';
+import DisplayMessage from '../components/Message';
 
 const ProductScreen = ({ match, history }) => {
   // component state
@@ -41,7 +41,7 @@ const ProductScreen = ({ match, history }) => {
   // add to cart button
   const addToCartHandler = () => {
     // we want to go to cart page with some params - product id & quantity as query string
-    // adding query string of '?qty= '
+    // adding query string of '?qty='
     history.push(`/cart/${match.params.id}?qty=${qty}`)
   }
 

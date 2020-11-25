@@ -24,21 +24,29 @@ const middleware = [thunk];
 // This is a React Provider component & call with props object
 // This component will wrap up other components
 
-// declare initial Global state object & customized to work with
-// test files to add data into Store for testing from test files
-// our initial test state will be pass as prop here
-
 // Accessing cart data from local storage with key - 'cartItems'
+// NOTE: This data will also be loaded in our Redux Store to persist data
 const cartItemsFromStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))
   : []; // if not found in local storage, its just going to be an empty array
 
+// saving user data in local storage for re-authentication & to persist data
+// NOTE: This data will also be loaded in our Redux Store to persist data
+const userInfoFromStorage = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo'))
+  : null  // if nothing there, return null
+
 const store = ({
   children,
   initialState = {
-    // our redux store initial global state 
+    // our redux store initial/current global state to PERSIST data
+    // NOTE: this data will always come from local storage if it's in there
+
     // creating initial/current state for cart 
     cart: { cartItems: cartItemsFromStorage },
+
+    // current state of user
+    userLogin: { userInfo: userInfoFromStorage }
   },
 }) => {
   // Wrap the children component with the Provider component.

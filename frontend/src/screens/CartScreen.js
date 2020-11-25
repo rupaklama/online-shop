@@ -4,19 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { addToCart, removeFromCart } from '../actions/cartActions';
-import DisplayMessage from '../components/DisplayMessage';
+import DisplayMessage from '../components/Message';
 const CartScreen = ({ match, location, history }) => {
   
   // to get product id
   const productId = match.params.id;
 
-  // to get the items quantity from the url
-  // location.search to get query string of '?qty=' from url 
-  // but we don't want whole string query, we want the quantity number only
-  // Now, check to see if there's a quantity value like '2, 3 items' in '?qty= ',
+  // to get the 'items quantity' from the url
+  // location.search to get 'query string' of '?qty=1' from url - item quantity param
+  // but we don't want whole string query, we want the quantity number only - 1
+  // Now, check to see if there's a quantity value like '1, 2, 3 items' in '?qty=',
   // if so we only want the value/number
-  // split('=') will set an array with '?qty=' as the first index - 0 index
-  // '=1' as 1 index, we want the 1 index
+  // split('=') will set an array with '?qty=' as the first index - 0 index,
+  // 'value' as 1 index, items quantity value '1, 2, 3' & we want the 1 index, numeric value
   const qty = location.search ? Number(location.search.split('=')[1]) : 1; 
   // else the quantity would be 1 - default value
   // wrap it with Number func to get numeric values

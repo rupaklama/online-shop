@@ -27,7 +27,7 @@ export const addToCart = (id, qty) => async(dispatch, getState) => {
   // this is where we use 'getState' to access 'cart' state & store in local storage
   // NOTE: TO PERSIST DATA & we can only store JSON strings in local storage
   localStorage.setItem('cardItems', JSON.stringify(getState().cart.cartItems))
-
+  // NOTE: This data will also be loaded in our Redux Store to persist data
   // NOTE: To get cart data from local storage, 
   // we need to set it as current state in our Redux Store in store.js 
 }

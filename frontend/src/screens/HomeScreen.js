@@ -4,7 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 import Product from '../components/Product';
 import { listProducts } from '../actions/productActions';
 import Loader from '../components/Loader';
-import DisplayMessage from '../components/DisplayMessage';
+import DisplayMessage from '../components/Message';
 const HomeScreen = () => {
   // useDispatch hook to dispatch an action creator
   const dispatch = useDispatch();
