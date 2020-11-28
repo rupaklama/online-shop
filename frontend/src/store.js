@@ -34,19 +34,29 @@ const cartItemsFromStorage = localStorage.getItem('cartItems')
 // NOTE: This data will also be loaded in our Redux Store to persist data
 const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
-  : null  // if nothing there, return null
+  : null; // if nothing there, return null
+
+// saving shipping address
+const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
+  ? JSON.parse(localStorage.getItem('shippingAddress'))
+  : {}; // if nothing there, return null
 
 const store = ({
   children,
   initialState = {
-    // our redux store initial/current global state to PERSIST data
-    // NOTE: this data will always come from local storage if it's in there
+    // our redux store initial/current global state to PERSIST data/state
+    // NOTE: Now, when our application boots up, first it will check to see
+    // if we have data store in local storage & if we do, we will start up our
+    // Redux State with these data below.
 
-    // creating initial/current state for cart 
-    cart: { cartItems: cartItemsFromStorage },
+    // creating initial/current state for cart
+    cart: {
+      cartItems: cartItemsFromStorage,
+      shippingAddress: shippingAddressFromStorage,
+    },
 
     // current state of user
-    userLogin: { userInfo: userInfoFromStorage }
+    userLogin: { userInfo: userInfoFromStorage },
   },
 }) => {
   // Wrap the children component with the Provider component.

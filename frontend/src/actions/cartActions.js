@@ -3,6 +3,7 @@ import axios from 'axios';
 // action types
 export const CART_ADD_ITEM = 'CART_ADD_ITEM';
 export const CART_REMOVE_ITEM = 'CART_REMOVE_ITEM';
+export const CART_SAVE_SHIPPING = 'CART_SAVE_SHIPPING';
 
 // params - id & qty
 // getState - to access our global state in redux store
@@ -44,5 +45,17 @@ export const removeFromCart = (id) => (dispatch, getState) => {
 
   // after dispatching, reset items data in local storage to PERSIST DATA
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
+}
+  
+// shipping address action creator
+// data param takes object as arg
+export const saveShippingAddress = (data) => (dispatch) => {
+  dispatch( {
+    type: CART_SAVE_SHIPPING,
+    payload: data
+  })
+
+  // after dispatching, save a copy in local storage to PERSIST DATA
+  localStorage.setItem('shippingAddress', JSON.stringify(data))
 }
   

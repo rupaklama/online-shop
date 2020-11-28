@@ -1,4 +1,4 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../actions/cartActions';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_SHIPPING } from '../actions/cartActions';
 
 // initial/current state of cart reducer
 // cartItems:[] - adding 'cartItems property' into our state to add items into our cart
@@ -7,6 +7,7 @@ import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../actions/cartActions';
 // All uppercase is to signify this is 'true constant', we should never change its value
 const INITIAL_STATE = {
   cartItems: [], 
+  shippingAddress: {},
 }
 export const cartReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -45,6 +46,11 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         cartItems: state.cartItems.filter( item => item.id !== action.payload)
+      }
+    case CART_SAVE_SHIPPING:
+      return { 
+        ...state,
+        shippingAddress: action.payload
       }
     default:
       return state;
