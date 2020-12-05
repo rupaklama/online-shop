@@ -1,14 +1,19 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_SHIPPING } from '../actions/cartActions';
+import {
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  CART_SAVE_PAYMENT_METHOD,
+  CART_SAVE_SHIPPING,
+} from '../actions/cartActions';
 
 // initial/current state of cart reducer
 // cartItems:[] - adding 'cartItems property' into our state to add items into our cart
 
-// other way of declaring initial state with object property 
+// other way of declaring initial state with object property
 // All uppercase is to signify this is 'true constant', we should never change its value
 const INITIAL_STATE = {
-  cartItems: [], 
+  cartItems: [],
   shippingAddress: {},
-}
+};
 export const cartReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case CART_ADD_ITEM:
@@ -25,33 +30,44 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
       // expected output: 12
 
       // let's find if item is already exists in our CART
-      const existItem = state.cartItems.find(item => item.id === currentItem.id);
+      const existItem = state.cartItems.find(
+        item => item.id === currentItem.id
+      );
 
       if (existItem) {
         return {
-          ...state, 
-          // mapping through current items 
+          ...state,
+          // mapping through current items
           // if current item's id === existItem's id, then return currentItem
-          cartItems: state.cartItems.map(item => item.id === existItem.id ? currentItem : item)
-        }
+          cartItems: state.cartItems.map(item =>
+            item.id === existItem.id ? currentItem : item
+          ),
+        };
       } else {
-        // if it doesn't exists, we will push/add it in array - cartItems 
+        // if it doesn't exists, we will push/add it in array - cartItems
         return {
           ...state,
-          cartItems: [...state.cartItems, currentItem]
-        }
+          cartItems: [...state.cartItems, currentItem],
+        };
       }
-    
+
     case CART_REMOVE_ITEM:
       return {
         ...state,
-        cartItems: state.cartItems.filter( item => item.id !== action.payload)
-      }
+        cartItems: state.cartItems.filter(item => item.id !== action.payload),
+      };
     case CART_SAVE_SHIPPING:
-      return { 
+      return {
         ...state,
-        shippingAddress: action.payload
-      }
+        shippingAddress: action.payload,
+      };
+
+    case CART_SAVE_PAYMENT_METHOD:
+      return {
+        ...state,
+        paymentMethod: action.payload,
+      };
+
     default:
       return state;
   }
